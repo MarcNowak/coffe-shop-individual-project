@@ -1,31 +1,25 @@
 import Product from './Product.js';
 import { article, classNames, select, settings } from './settings.js';
 
-
-
 const app = {
 
   initPages: function () {
 
-
     const links = document.querySelectorAll(select.nav.links);
-
 
     const articleAbout = document.querySelector(article.about);
     const articleProduct = document.querySelector(article.products);
     const articleContact = document.querySelector(article.contact);
 
-    
-
     for (let link of links) {
-      link.addEventListener('click', function(event) {
+      link.addEventListener('click', function (event) {
         event.preventDefault();
         const clickedElement = this;
-        
+
         articleAbout.classList.remove(classNames.pages.active);
         articleProduct.classList.remove(classNames.pages.active);
         articleContact.classList.remove(classNames.pages.active);
-        
+
         const href = clickedElement.getAttribute('href');
 
         if (href == '#products') {
@@ -36,46 +30,38 @@ const app = {
         } if (href == '#contact') {
           articleContact.classList.add(classNames.pages.active);
         }
-
-
-        
       });
 
     }
-
-  
-
-
   },
 
-  initData: function(){
+  initData: function () {
     const thisApp = this;
 
     thisApp.data = {};
     const url = settings.db.url + '/' + settings.db.products;
 
     fetch(url)
-      .then(function(rawResponse){
+      .then(function (rawResponse) {
         return rawResponse.json();
       })
-      .then(function(parsedResponse){
+      .then(function (parsedResponse) {
         thisApp.data.products = parsedResponse;
         thisApp.initMenu();
       });
   },
 
-  initMenu: function(){
+  initMenu: function () {
     const thisApp = this;
-    for(let productData in thisApp.data.products){
+    for (let productData in thisApp.data.products) {
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
 
   },
 
- 
-  initHamburger: function(){
+  initHamburger: function () {
     const hamburger = document.getElementById('hamburger');
-    const navUL= document.getElementById('nav-ul');
+    const navUL = document.getElementById('nav-ul');
 
     hamburger.addEventListener('click', () => {
       navUL.classList.toggle('show');
@@ -83,8 +69,7 @@ const app = {
 
   },
 
-
-  init: function() {
+  init: function () {
     const thisApp = this;
 
     thisApp.initPages();
@@ -94,9 +79,6 @@ const app = {
     //thisApp.initContact();
     thisApp.initHamburger();
   },
-
-
-
 };
 
-app.init ();
+app.init();

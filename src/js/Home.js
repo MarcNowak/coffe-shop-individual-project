@@ -1,7 +1,7 @@
 import { templates } from './settings.js';
 
 class Home {
-  constructor(element){
+  constructor(element) {
     const thisHome = this;
 
     thisHome.render(element);
@@ -9,7 +9,7 @@ class Home {
 
   render(element) {
     const thisHome = this;
-    
+
     const generatedHTML = templates.homeWidget();
 
 
